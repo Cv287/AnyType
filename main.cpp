@@ -12,13 +12,17 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
   
-  AnyType any{ 133.7 };
+  AnyType any{ 3.2 };
   
+  AnyType any2 = any;
+
   try {
     cout << any.ToFloat() << endl;
   } catch (const runtime_error& ex) {
     cerr << "Handled exception: " << ex.what() << endl;
   }
+
+  cout << any2.ToDouble() << endl;
   
   return EXIT_SUCCESS;
 }

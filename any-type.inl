@@ -56,30 +56,35 @@ void AnyType::SetValue(const Floating& v) {
   if (std::is_same_v<Floating, float>) {
     dataType = DataType::Float;
     value.m_float = v;
+    return;
   }
   else if (std::is_same_v<Floating, double>) {
     dataType = DataType::Double;
     value.m_double = v;
+    return;
   }
   else if (std::is_same_v<Floating, long double>) {
     dataType = DataType::LongDouble;
     value.m_ldouble = v;
+    return;
   }
 }
 
 template <typename FundamentalType>
-AnyType::AnyType(const FundamentalType& value) {
+AnyType::AnyType(const FundamentalType& value) : dataType{ DataType::None } {
   SetValue(value);
 }
 
 template <typename FundamentalType>
 AnyType& AnyType::operator=(const FundamentalType& value) {
+  dataType = DataType::None;
   SetValue(value);
   return *this;
 }
 
 template <typename FundamentalType>
 AnyType& AnyType::operator=(FundamentalType&& value) {
+  dataType = DataType::None;
   SetValue(value);
   return *this;
 }

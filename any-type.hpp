@@ -9,6 +9,7 @@
 #define any_type_hpp
 
 #include <iostream>
+#include <string>
 #include <sstream>
 #include <type_traits>
 #include <typeinfo>
@@ -27,9 +28,8 @@ class AnyType {
   /* dataType contains value corresponding to value stored in union.
    Can be used as watchlist of supported fundamental types. */
   enum class DataType {
-    Bool, Int, LongInt, Double, UnsignedLongInt,
+    None, Bool, Int, LongInt, Double, UnsignedLongInt,
     LongDouble, Char, UnsignedChar, UnsignedInt, Float,
-    None
   } dataType;
   
   /* The main data is stored here. */
@@ -57,7 +57,7 @@ private /* methods */:
    causes substitution failure if it's
    not included in the list of supported types.
    This function template is used in constructors and assignment operators (AO).
-   So if we'll give variable of an unsupported type to a constructor or AO then
+   If we'll pass a value of an non-fundamental type to a constructor or AO then
    compilation error will be caused.
    */
   template <typename Integral,
@@ -77,9 +77,8 @@ private /* static methods */:
   static const char* ToString(DataType dt);
 
 public:
-  /* Constructors and assignment operators
-   that take fundamental type values
-   as arguments cause compilation errors. */
+  /* Constructors and assignment operators take fundamental type values
+   as arguments. Compilation error will be caused if value isn't fundamental. */
   /*---------------Constructors---------------*/
   AnyType();
   
@@ -104,8 +103,8 @@ public:
   /*------------------------------------------*/
   
   /* Returns current data type. */
-  DataType GetDataType() const;
-  /* Sets current data type to null.
+  std::string GetDataType() const;
+  /* Sets current data type (in enum) to None.
    It means all casts will raise an exception. */
   void Clear();
   
@@ -120,6 +119,8 @@ public:
   float ToFloat() const;
   double ToDouble() const;
   long double ToLongDouble() const;
+  
+  friend int main(int argc, const char*argv[]);
 };
 
 #include "any-type.inl"

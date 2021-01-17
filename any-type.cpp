@@ -43,8 +43,8 @@ AnyType::AnyType() : dataType{ DataType::None } {
 
 }
 
-AnyType::DataType AnyType::GetDataType() const {
-  return dataType;
+std::string AnyType::GetDataType() const {
+  return ToString(dataType);
 }
 
 void AnyType::Clear() {
