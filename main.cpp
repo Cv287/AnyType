@@ -8,21 +8,16 @@
 #include <iostream>
 #include <string>
 #include "any-type.hpp"
+#include "any-type-test.hpp"
 using namespace std;
 
-int main(int argc, const char * argv[]) {
-  
-  AnyType any{ 3.2 };
-  
-  AnyType any2 = any;
+#define RUN_TESTS
 
-  try {
-    cout << any.ToFloat() << endl;
-  } catch (const runtime_error& ex) {
-    cerr << "Handled exception: " << ex.what() << endl;
-  }
-
-  cout << any2.ToDouble() << endl;
+int main(int argc, char * argv[]) {
+#ifdef RUN_TESTS
+  ::testing::InitGoogleTest(&argc, argv);
+  [[maybe_unused]] const auto _ = RUN_ALL_TESTS();
+#endif
   
   return EXIT_SUCCESS;
 }
