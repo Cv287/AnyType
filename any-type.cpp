@@ -7,6 +7,16 @@
 
 #include "any-type.hpp"
 
+bool operator==(const AnyType& lhs, const AnyType& rhs) {
+  if (lhs.dataType != rhs.dataType) {
+    return false;
+  }
+  if (lhs.dataType != AnyType::DataType::None && lhs.value.m_lint != rhs.value.m_lint) {
+    return false;
+  }
+  return true;
+}
+
 void AnyType::ValidateTypeOrRaise(DataType castDataType) const {
   if (dataType != castDataType) {
     std::ostringstream os;

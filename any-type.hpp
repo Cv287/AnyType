@@ -91,10 +91,8 @@ public:
   /*------------------------------------------*/
   /* //////////////////////////////////////// */
   /*-----------Assignment operators-----------*/
-  AnyType& operator=(const AnyType& other) = default;
+  AnyType& operator=(const AnyType& other);
   
-  AnyType& operator=(AnyType&& other) = default;
-
   template <typename FundamentalType>
   AnyType& operator=(const FundamentalType& value);
   
@@ -120,7 +118,8 @@ public:
   double ToDouble() const;
   long double ToLongDouble() const;
   
-  friend int main(int argc, const char*argv[]);
+  /*  */
+  friend bool operator==(const AnyType& lhs, const AnyType& rhs);
 };
 
 #include "any-type.inl"
